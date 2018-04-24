@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
 Imports System.IO
 Imports System.Net
@@ -8,79 +7,80 @@ Imports DevExpress.XtraRichEdit
 Imports DevExpress.XtraRichEdit.API.Native
 
 Partial Public Class _Default
-	Inherits System.Web.UI.Page
-	Private documentServer As RichEditDocumentServer = Nothing
+    Inherits System.Web.UI.Page
 
-	Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
-		documentServer = New RichEditDocumentServer()
+    Private documentServer As RichEditDocumentServer = Nothing
 
-		If Request.QueryString.Count > 0 AndAlso Request.QueryString(0).StartsWith("preview") Then
-			RefreshPreview(Request.QueryString(0))
-		End If
-	End Sub
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
+        documentServer = New RichEditDocumentServer()
 
-	Private Sub RefreshPreview(ByVal previewName As String)
-		Response.StatusCode = CInt(Fix(HttpStatusCode.OK))
-		Response.ContentType = "text/html"
+        If Request.QueryString.Count > 0 AndAlso Request.QueryString(0).StartsWith("preview") Then
+            RefreshPreview(Request.QueryString(0))
+        End If
+    End Sub
 
-		Dim outputStream As Stream = ExecuteMerge(previewName, DocumentFormat.Html)
+    Private Sub RefreshPreview(ByVal previewName As String)
+        Response.StatusCode = CInt(HttpStatusCode.OK)
+        Response.ContentType = "text/html"
 
-		outputStream.Seek(0, SeekOrigin.Begin)
-		StreamCopyHelper.Copy(outputStream, Response.OutputStream)
+        Dim outputStream As Stream = ExecuteMerge(previewName, DocumentFormat.Html)
 
-		Response.End()
-	End Sub
+        outputStream.Seek(0, SeekOrigin.Begin)
+        StreamCopyHelper.Copy(outputStream, Response.OutputStream)
 
-	Private Function ExecuteMerge(ByVal templateName As String, ByVal documentFormat As DocumentFormat) As Stream
-		Dim result As Stream = New MemoryStream()
-		Dim mailMergeOptions As MailMergeOptions = documentServer.CreateMailMergeOptions()
+        Response.End()
+    End Sub
 
-		If templateName = "preview1" Then
-			documentServer.LoadDocument(Page.MapPath("~/App_Data/InvoicesDetail.rtf"))
+    Private Function ExecuteMerge(ByVal templateName As String, ByVal documentFormat As DocumentFormat) As Stream
+        Dim result As Stream = New MemoryStream()
+        Dim mailMergeOptions As MailMergeOptions = documentServer.CreateMailMergeOptions()
 
-			Dim invoices As New List(Of Invoice)(10)
+        If templateName = "preview1" Then
+            documentServer.LoadDocument(Page.MapPath("~/App_Data/InvoicesDetail.rtf"))
 
-			invoices.Add(New Invoice(0, "Invoice1", 10.0D))
-			invoices.Add(New Invoice(1, "Invoice2", 15.0D))
-			invoices.Add(New Invoice(2, "Invoice3", 20.0D))
+            Dim invoices As New List(Of Invoice)(10)
 
-			mailMergeOptions.DataSource = invoices
-		ElseIf templateName = "preview2" Then
-			documentServer.LoadDocument(Page.MapPath("~/App_Data/SamplesDetail.rtf"))
+            invoices.Add(New Invoice(0, "Invoice1", 10.0D))
+            invoices.Add(New Invoice(1, "Invoice2", 15.0D))
+            invoices.Add(New Invoice(2, "Invoice3", 20.0D))
 
-			mailMergeOptions.DataSource = ManualDataSet.CreateData().Tables(0)
-		ElseIf templateName = "all" Then
-			Dim part1 As Stream = ExecuteMerge("preview1", documentFormat)
-			Dim part2 As Stream = ExecuteMerge("preview2", documentFormat)
+            mailMergeOptions.DataSource = invoices
+        ElseIf templateName = "preview2" Then
+            documentServer.LoadDocument(Page.MapPath("~/App_Data/SamplesDetail.rtf"))
 
-			part1.Seek(0, SeekOrigin.Begin)
-			part2.Seek(0, SeekOrigin.Begin)
+            mailMergeOptions.DataSource = ManualDataSet.CreateData().Tables(0)
+        ElseIf templateName = "all" Then
+            Dim part1 As Stream = ExecuteMerge("preview1", documentFormat)
+            Dim part2 As Stream = ExecuteMerge("preview2", documentFormat)
 
-			documentServer.LoadDocument(part1, documentFormat)
-			documentServer.Document.AppendDocumentContent(part2, documentFormat)
+            part1.Seek(0, SeekOrigin.Begin)
+            part2.Seek(0, SeekOrigin.Begin)
 
-			documentServer.SaveDocument(result, documentFormat)
+            documentServer.LoadDocument(part1, documentFormat)
+            documentServer.Document.AppendDocumentContent(part2, documentFormat)
 
-			Return result
-		End If
+            documentServer.SaveDocument(result, documentFormat)
 
-		documentServer.Options.MailMerge.ViewMergedData = True
-		documentServer.Options.Export.Html.EmbedImages = True
-		mailMergeOptions.MergeMode = MergeMode.JoinTables
-		documentServer.MailMerge(mailMergeOptions, result, documentFormat)
+            Return result
+        End If
 
-		Return result
-	End Function
+        documentServer.Options.MailMerge.ViewMergedData = True
+        documentServer.Options.Export.Html.EmbedImages = True
+        mailMergeOptions.MergeMode = MergeMode.JoinTables
+        documentServer.MailMerge(mailMergeOptions, result, documentFormat)
 
-	Protected Sub btnDownload_Click(ByVal sender As Object, ByVal e As EventArgs)
-		Dim outputStream As Stream = ExecuteMerge("all", DocumentFormat.Rtf)
+        Return result
+    End Function
 
-		outputStream.Seek(0, SeekOrigin.Begin)
-		StreamCopyHelper.Copy(outputStream, Response.OutputStream)
+    Protected Sub btnDownload_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim outputStream As Stream = ExecuteMerge("all", DocumentFormat.Rtf)
 
-		Response.StatusCode = CInt(Fix(HttpStatusCode.OK))
-		Response.ContentType = "application/rtf"
-		Response.AddHeader("Content-Disposition", "attachment; filename=RichEditMailMerge.rtf")
-		Response.End()
-	End Sub
+        outputStream.Seek(0, SeekOrigin.Begin)
+        StreamCopyHelper.Copy(outputStream, Response.OutputStream)
+
+        Response.StatusCode = CInt(HttpStatusCode.OK)
+        Response.ContentType = "application/rtf"
+        Response.AddHeader("Content-Disposition", "attachment; filename=RichEditMailMerge.rtf")
+        Response.End()
+    End Sub
 End Class
