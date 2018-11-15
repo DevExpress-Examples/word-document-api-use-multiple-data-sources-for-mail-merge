@@ -1,3 +1,11 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [DataClasses.cs](./CS/WebSite/App_Code/DataClasses.cs) (VB: [DataClasses.vb](./VB/WebSite/App_Code/DataClasses.vb))
+* [StreamCopyHelper.cs](./CS/WebSite/App_Code/StreamCopyHelper.cs) (VB: [StreamCopyHelper.vb](./VB/WebSite/App_Code/StreamCopyHelper.vb))
+* [Default.aspx](./CS/WebSite/Default.aspx) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
+* [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
+<!-- default file list end -->
 # How to perform mail merge for several data sources and merge resulting documents
 
 
