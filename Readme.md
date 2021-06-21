@@ -1,7 +1,7 @@
 <!-- default file list -->
 *Files to look at*:
 
-* [Default.aspx.cs](./CS/MailMergeSample/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
+* [Default.aspx.cs](./CS/MailMergeSample/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/MailMergeSample/Default.aspx.vb))
 <!-- default file list end -->
 # How to perform mail merge for several data sources and merge resulting documents
 <!-- run online -->
