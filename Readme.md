@@ -8,7 +8,7 @@
 
 * [Default.aspx.cs](./CS/MailMergeSample/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/MailMergeSample/Default.aspx.vb))
 <!-- default file list end -->
-# How to perform mail merge for several data sources and merge resulting documents
+# Word Processing Document API - How to Use Multiple Data Sources for a Mail Merge
 <!-- run online -->
 **[[Run Online]](https://codecentral.devexpress.com/e4765/)**
 <!-- run online end -->
