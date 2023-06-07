@@ -51,7 +51,6 @@ Public Partial Class _Default
             Return result
         End If
 
-        documentServer.Options.MailMerge.ViewMergedData = True
         documentServer.Options.Export.Html.EmbedImages = True
         mailMergeOptions.MergeMode = MergeMode.JoinTables
         documentServer.MailMerge(mailMergeOptions, result, documentFormat)

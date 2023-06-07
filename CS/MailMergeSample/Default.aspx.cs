@@ -63,8 +63,6 @@ public partial class _Default : System.Web.UI.Page {
 
             return result;
         }
-
-        documentServer.Options.MailMerge.ViewMergedData = true;
         documentServer.Options.Export.Html.EmbedImages = true;
         mailMergeOptions.MergeMode = MergeMode.JoinTables;
         documentServer.MailMerge(mailMergeOptions, result, documentFormat);
