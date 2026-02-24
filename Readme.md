@@ -7,7 +7,7 @@
 
 # Word Processing Document API - How to Use Multiple Data Sources for a Mail Merge
 
-This example illustrates how to use the [Mail Merge](https://docs.devexpress.com/OfficeFileAPI/15277/word-processing-document-api/mail-merge) functionality of the [Word Processing File API](https://docs.devexpress.com/OfficeFileAPI/17488/word-processing-document-api) to merge data from different data sources and merge resultant documents into one in an ASP.NET application. The approach illustrated in this example is similar to one utilized in the <a href="https://demos.devexpress.com/OfficeFileAPI/ASP/MailMerge/WordRTFMailMerge.aspx">Office File API - Mail Merge</a> online demo. The difference is that we use multiple data sources in our example, and all records from an associated data source are rendered in mail-merged document previews.
+This example illustrates how to use the [Mail Merge](https://docs.devexpress.com/OfficeFileAPI/15277/word-processing-document-api/mail-merge) functionality of the [Word Processing File API](https://docs.devexpress.com/OfficeFileAPI/17488/word-processing-document-api) to merge data from different data sources and merge resultant documents into one in an ASP.NET application. The approach illustrated in this example is similar to one utilized in the <a href="https://demos.devexpress.com/OfficeFileApi/BlazorServer/MailMergeDocumentTemplates/WordRtfMailMerge">Office File API - Mail Merge</a> online demo. The difference is that we use multiple data sources in our example, and all records from an associated data source are rendered in mail-merged document previews.
 
 > [!Important]  
 > The Universal Subscription or an additional Office File API Subscription is required to use this example in production code. For pricing information, please refer to the [DevExpress Subscription](https://www.devexpress.com/Subscriptions/) page.  
@@ -26,3 +26,4 @@ This example illustrates how to use the [Mail Merge](https://docs.devexpress.com
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
